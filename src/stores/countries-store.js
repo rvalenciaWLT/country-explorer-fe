@@ -7,7 +7,7 @@ export const useCountriesStore = defineStore('countries', () => {
   const loading = ref(false)
   const error = ref(null)
 
-  const cache = new Map() 
+  const cache = new Map()
 
   async function loadCountries(search = '', continent = null) {
     const q = search.trim().toLowerCase()

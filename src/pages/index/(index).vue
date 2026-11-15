@@ -8,13 +8,11 @@
 
     <CountryFilters v-model:search="search" v-model:continent="continent" class="q-mt-md" />
 
-
     <div v-if="store.loading" class="row q-col-gutter-md q-mt-sm">
       <div v-for="n in 8" :key="n" class="col-12 col-sm-6 col-md-4 col-lg-3">
         <q-skeleton height="110px" />
       </div>
     </div>
-
 
     <q-banner v-else-if="store.error" class="bg-red-1 text-negative q-mt-md" rounded>
       {{ store.error }}
@@ -23,11 +21,9 @@
       </template>
     </q-banner>
 
-
     <div v-else-if="!store.countries.length" class="text-center text-grey-7 q-mt-xl">
       No se encontraron países
     </div>
-
 
     <div v-else class="row q-col-gutter-md q-mt-sm">
       <div v-for="c in store.countries" :key="c.code" class="col-12 col-sm-6 col-md-4 col-lg-3">
@@ -58,7 +54,7 @@ const showDialog = ref(false)
 const load = () => store.loadCountries(search.value, continent.value)
 
 onMounted(load)
-watch([search, continent], load) 
+watch([search, continent], load)
 
 const goToDetail = (code) => router.push(`/country/${code}`)
 

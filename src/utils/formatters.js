@@ -1,7 +1,6 @@
 export const flagUrl = (code, size = 160) =>
   `https://flagcdn.com/w${size}/${code.toLowerCase()}.png`
 
-
 export const formatPopulation = (n) =>
   n >= 1e6 ? `${(n / 1e6).toFixed(1)} M` : n.toLocaleString('es-PE')
 

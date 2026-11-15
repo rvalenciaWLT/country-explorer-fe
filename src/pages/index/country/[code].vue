@@ -2,9 +2,7 @@
   <q-page class="q-pa-md bg-grey-1">
     <q-btn flat dense no-caps icon="chevron_left" label="Volver al listado" to="/" />
 
-
     <q-skeleton v-if="loading" height="400px" class="q-mt-md" />
-
 
     <q-banner v-else-if="error" class="bg-red-1 text-negative q-mt-md" rounded>
       {{ error }}
@@ -13,10 +11,8 @@
       </template>
     </q-banner>
 
-
     <q-card v-else-if="country" flat bordered class="q-mt-md">
       <q-card-section>
-
         <div class="row items-center no-wrap">
           <img
             :src="flagUrl(country.code, 320)"
@@ -31,7 +27,6 @@
           </div>
         </div>
 
-
         <div class="bg-primary text-white rounded-borders q-pa-md q-mt-md row items-center">
           <q-icon name="place" size="md" />
           <div class="q-ml-md">
@@ -39,7 +34,6 @@
             <div class="text-h6 text-weight-bold">{{ country.capital }}</div>
           </div>
         </div>
-
 
         <div class="row q-col-gutter-md q-mt-sm">
           <div v-for="item in details" :key="item.label" class="col-12 col-sm-6 col-md-4">
@@ -53,7 +47,6 @@
             </div>
           </div>
         </div>
-
 
         <div class="q-mt-md">
           <div class="text-caption text-grey-7">Países fronterizos</div>
@@ -98,7 +91,6 @@ async function load() {
 }
 
 onMounted(load)
-
 
 const details = computed(() => {
   const c = country.value

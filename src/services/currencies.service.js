@@ -2,7 +2,6 @@ import { currenciesApi } from '@/boot/axios'
 
 const first = (res) => res.data.data.objects[0]
 
-
 export const getRateToUSD = (code) =>
   currenciesApi.get(`/rates/${code}`).then((res) => first(res).rates.USD)
 

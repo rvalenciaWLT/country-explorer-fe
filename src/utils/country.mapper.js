@@ -19,6 +19,6 @@ export function mapCountry(raw) {
     borders: raw.borders ?? [],
     currency: currency
       ? { code: currency.code, name: currency.name, symbol: currency.symbol?.trim() }
-      : null, 
+      : null,
   }
 }

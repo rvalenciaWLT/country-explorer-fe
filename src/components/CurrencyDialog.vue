@@ -19,7 +19,7 @@
           {{ error }}
         </q-banner>
         <div v-else-if="rate !== null" class="bg-grey-2 q-pa-sm rounded-borders">
-          1 {{ currency.code }} = {{ rate.toFixed(2) }} USD
+          1 {{ currency.code }} = {{ formatNumber(rate) }} USD
         </div>
       </q-card-section>
 
@@ -64,6 +64,9 @@ const error = ref(null)
 const amount = ref(100)
 const result = ref('')
 
+const formatNumber = (n) =>
+  n.toLocaleString('en-US', n >= 1 ? { maximumFractionDigits: 2 } : { maximumSignificantDigits: 3 })
+
 // Se ejecuta cada vez que se abre el modal
 async function loadRate() {
   rate.value = null
@@ -84,7 +87,7 @@ async function convertAmount() {
   error.value = null
   try {
     const usd = await convert(props.currency.code, 'USD', amount.value)
-    result.value = `${amount.value} ${props.currency.code} = ${usd.toFixed(2)} USD`
+    result.value = `${amount.value} ${props.currency.code} = ${formatNumber(usd)} USD`
   } catch (err) {
     error.value = err.userMessage
   } finally {

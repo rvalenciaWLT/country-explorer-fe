@@ -68,9 +68,11 @@ import { useRoute } from 'vue-router'
 import { getByCode } from '@/services/countries.service'
 import { flagUrl, formatPopulation, formatArea, formatDrivingSide } from '@/utils/formatters'
 import { CONTINENT_LABELS } from '@/constants/continents'
+import { useCountriesStore } from '@/stores/countries-store'
 import CurrencyDialog from '@/components/CurrencyDialog.vue'
 
 const route = useRoute()
+const store = useCountriesStore()
 
 const country = ref(null)
 const loading = ref(false)
@@ -82,7 +84,8 @@ async function load() {
   error.value = null
   try {
     country.value = await getByCode(route.params.code)
-    if (!country.value) error.value = 'País no encontrado'
+    if (country.value) store.addRecent(country.value)
+    else error.value = 'País no encontrado'
   } catch (err) {
     error.value = err.userMessage
   } finally {

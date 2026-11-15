@@ -8,6 +8,16 @@
 
     <CountryFilters v-model:search="search" v-model:continent="continent" class="q-mt-md" />
 
+    <div v-if="store.recent.length && !search && !continent" class="q-mt-md">
+      <div class="text-subtitle2 text-grey-8">Vistos recientemente</div>
+      <div class="row q-col-gutter-md q-mt-none">
+        <div v-for="c in store.recent" :key="c.code" class="col-12 col-sm-6 col-md-4 col-lg-3">
+          <CountryCard :country="c" @select="goToDetail" @currency="openCurrency" />
+        </div>
+      </div>
+      <q-separator class="q-mt-md" />
+    </div>
+
     <div v-if="store.loading" class="row q-col-gutter-md q-mt-sm">
       <div v-for="n in 8" :key="n" class="col-12 col-sm-6 col-md-4 col-lg-3">
         <q-skeleton height="110px" />

@@ -9,6 +9,26 @@ export const useCountriesStore = defineStore('countries', () => {
 
   const cache = new Map()
 
+  const RECENT_KEY = 'recent-countries'
+  const recent = ref(readRecent())
+
+  function readRecent() {
+    try {
+      return JSON.parse(localStorage.getItem(RECENT_KEY)) ?? []
+    } catch {
+      return []
+    }
+  }
+
+  function addRecent(country) {
+    recent.value = [country, ...recent.value.filter((c) => c.code !== country.code)].slice(0, 4)
+    try {
+      localStorage.setItem(RECENT_KEY, JSON.stringify(recent.value))
+    } catch {
+      return
+    }
+  }
+
   async function loadCountries(search = '', continent = null) {
     const q = search.trim().toLowerCase()
     const key = q ? `capital:${q}` : continent ? `region:${continent}` : 'all'
@@ -39,5 +59,5 @@ export const useCountriesStore = defineStore('countries', () => {
     }
   }
 
-  return { countries, loading, error, loadCountries }
+  return { countries, loading, error, loadCountries, recent, addRecent }
 })
